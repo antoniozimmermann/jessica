@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eu te amo ❤</title>
   <style>
-    /* Fundo romântico */
     body {
       margin: 0;
       height: 100vh;
@@ -15,16 +14,15 @@
       background: radial-gradient(circle at center, #ffccd5, #ff6699);
       overflow: hidden;
       font-family: 'Arial', sans-serif;
+      cursor: pointer; /* indica interação */
     }
 
-    /* Mensagem flutuante e pulsante */
     h1 {
       font-size: 4rem;
       font-weight: bold;
       z-index: 10;
       position: relative;
       text-align: center;
-      /* Degradê vermelho Ferrari */
       background: linear-gradient(90deg, #ff2800, #ff0000);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -39,13 +37,12 @@
       100% { transform: translate(0, 0) scale(1); }
     }
 
-    /* Confetes e corações */
     .falling {
       position: absolute;
       top: -50px;
       font-size: 1.5rem;
-      animation: fall linear infinite;
       pointer-events: none;
+      animation: fall linear infinite;
     }
 
     @keyframes fall {
@@ -65,38 +62,43 @@
 
   <script>
     const emojis = ["🎉","💖","💌","💘","💝","✨","❤️","💟"];
+    const colors = ["#ff1a1a","#ff4d4d","#ff6666","#ff99cc","#ffccff","#ffb3b3"];
     const total = 60;
 
-    for (let i = 0; i < total; i++) {
+    function createFalling(x = Math.random() * 100) {
       const span = document.createElement("span");
       span.classList.add("falling");
       span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-      // posição horizontal aleatória
-      span.style.left = Math.random() * 100 + "vw";
-
-      // tamanho aleatório
+      span.style.left = x + "vw";
       span.style.fontSize = Math.random() * 24 + 16 + "px";
-
-      // duração da queda aleatória
       span.style.animationDuration = Math.random() * 5 + 5 + "s";
-
-      // delay aleatório
       span.style.animationDelay = Math.random() * 5 + "s";
-
-      // velocidade de rotação aleatória
       span.style.transform = `rotate(${Math.random()*360}deg)`;
-
-      // cores variáveis para confetes
-      const colors = ["#ff1a1a","#ff4d4d","#ff6666","#ff99cc","#ffccff","#ffb3b3"];
       span.style.color = colors[Math.floor(Math.random() * colors.length)];
-
-      // efeito de vento horizontal aleatório
-      span.style.animationTimingFunction = "linear";
-      span.style.setProperty("--wind", Math.random() * 50 - 25 + "px"); // não usado diretamente, mas pode customizar depois
-
       document.body.appendChild(span);
+
+      // Remove o elemento após cair
+      setTimeout(() => span.remove(), (parseFloat(span.style.animationDuration) + parseFloat(span.style.animationDelay)) * 1000);
     }
+
+    // Cria confetes contínuos automaticamente
+    for (let i = 0; i < total; i++) createFalling();
+
+    setInterval(() => {
+      createFalling();
+    }, 300);
+
+    // Interação com mouse
+    document.addEventListener("mousemove", (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      createFalling(x);
+    });
+
+    // Interação com toque no celular
+    document.addEventListener("touchmove", (e) => {
+      const x = (e.touches[0].clientX / window.innerWidth) * 100;
+      createFalling(x);
+    });
   </script>
 </body>
 </html>
