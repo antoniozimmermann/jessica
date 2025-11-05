@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eu te amo</title>
+  <title>Eu te amo ❤</title>
   <style>
     body {
       margin: 0;
@@ -21,20 +21,16 @@
       color: #ff0066;
       z-index: 10;
       position: relative;
-      animation: pulseAndMove 2s infinite alternate ease-in-out;
+      animation: floatAndPulse 3s infinite ease-in-out;
     }
 
-    /* Animação da mensagem */
-    @keyframes pulseAndMove {
-      0% {
-        transform: scale(1) translateX(0);
-      }
-      50% {
-        transform: scale(1.2) translateX(20px);
-      }
-      100% {
-        transform: scale(1) translateX(-20px);
-      }
+    /* Animação pulsante e flutuante */
+    @keyframes floatAndPulse {
+      0%   { transform: translate(0, 0) scale(1); }
+      25%  { transform: translate(10px, -10px) scale(1.1); }
+      50%  { transform: translate(-10px, 10px) scale(1.2); }
+      75%  { transform: translate(10px, 10px) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
     }
 
     /* Confetes e corações */
@@ -58,7 +54,7 @@
   </style>
 </head>
 <body>
-  <h1>Eu te amo</h1>
+  <h1>Eu te amo ❤</h1>
 
   <script>
     const emojis = ["🎉","💖","💌","💘","💝","✨"];
