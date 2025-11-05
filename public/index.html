@@ -5,26 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eu te amo ❤</title>
   <style>
+    /* Fundo romântico */
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #ffedf0;
+      background: radial-gradient(circle at center, #ffccd5, #ff6699);
       overflow: hidden;
       font-family: 'Arial', sans-serif;
     }
 
+    /* Mensagem flutuante e pulsante */
     h1 {
       font-size: 4rem;
-      color: #ff0066;
+      font-weight: bold;
       z-index: 10;
       position: relative;
+      text-align: center;
+      /* Degradê vermelho Ferrari */
+      background: linear-gradient(90deg, #ff2800, #ff0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       animation: floatAndPulse 3s infinite ease-in-out;
     }
 
-    /* Animação pulsante e flutuante */
     @keyframes floatAndPulse {
       0%   { transform: translate(0, 0) scale(1); }
       25%  { transform: translate(10px, -10px) scale(1.1); }
@@ -39,6 +45,7 @@
       top: -50px;
       font-size: 1.5rem;
       animation: fall linear infinite;
+      pointer-events: none;
     }
 
     @keyframes fall {
@@ -54,20 +61,40 @@
   </style>
 </head>
 <body>
-  <h1>Eu te amo ❤</h1>
+  <h1>Eu te amo <span style="color:#ff0000;">❤</span></h1>
 
   <script>
-    const emojis = ["🎉","💖","💌","💘","💝","✨"];
-    const total = 50; // total de elementos caindo
+    const emojis = ["🎉","💖","💌","💘","💝","✨","❤️","💟"];
+    const total = 60;
 
-    for(let i = 0; i < total; i++) {
+    for (let i = 0; i < total; i++) {
       const span = document.createElement("span");
       span.classList.add("falling");
       span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      // posição horizontal aleatória
       span.style.left = Math.random() * 100 + "vw";
-      span.style.fontSize = Math.random() * 24 + 16 + "px"; // tamanho aleatório
-      span.style.animationDuration = Math.random() * 5 + 5 + "s"; // duração aleatória
-      span.style.animationDelay = Math.random() * 5 + "s"; // delay aleatório
+
+      // tamanho aleatório
+      span.style.fontSize = Math.random() * 24 + 16 + "px";
+
+      // duração da queda aleatória
+      span.style.animationDuration = Math.random() * 5 + 5 + "s";
+
+      // delay aleatório
+      span.style.animationDelay = Math.random() * 5 + "s";
+
+      // velocidade de rotação aleatória
+      span.style.transform = `rotate(${Math.random()*360}deg)`;
+
+      // cores variáveis para confetes
+      const colors = ["#ff1a1a","#ff4d4d","#ff6666","#ff99cc","#ffccff","#ffb3b3"];
+      span.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+      // efeito de vento horizontal aleatório
+      span.style.animationTimingFunction = "linear";
+      span.style.setProperty("--wind", Math.random() * 50 - 25 + "px"); // não usado diretamente, mas pode customizar depois
+
       document.body.appendChild(span);
     }
   </script>
