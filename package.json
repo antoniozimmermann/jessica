@@ -1,0 +1,16 @@
+{
+  "name": "jessica",
+  "version": "1.0.0",
+  "description": "Projeto web simples com mensagem 'Eu te amo'",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
