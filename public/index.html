@@ -3,11 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mensagem Especial</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Eu te amo</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffedf0;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #ff0066;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* Confetes e corações */
+    .falling {
+      position: absolute;
+      top: -50px;
+      font-size: 1.5rem;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Eu te amo ❤️</h1>
-  <script src="script.js"></script>
+
+  <script>
+    const emojis = ["🎉","💖","💌","💘","💝","✨"];
+    const total = 50; // total de elementos caindo
+
+    for(let i = 0; i < total; i++) {
+      const span = document.createElement("span");
+      span.classList.add("falling");
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      span.style.left = Math.random() * 100 + "vw";
+      span.style.fontSize = Math.random() * 24 + 16 + "px"; // tamanho aleatório
+      span.style.animationDuration = Math.random() * 5 + 5 + "s"; // duração aleatória
+      span.style.animationDelay = Math.random() * 5 + "s"; // delay aleatório
+      document.body.appendChild(span);
+    }
+  </script>
 </body>
 </html>
