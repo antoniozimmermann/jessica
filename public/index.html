@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eu te amo ❤</title>
+
+  <!-- Fonte romântica -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -14,11 +18,12 @@
       background: radial-gradient(circle at center, #ffccd5, #ff6699);
       overflow: hidden;
       font-family: 'Arial', sans-serif;
-      cursor: pointer; /* indica interação */
+      cursor: pointer;
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 5rem;
+      font-family: 'Great Vibes', cursive;
       font-weight: bold;
       z-index: 10;
       position: relative;
@@ -43,29 +48,29 @@
       font-size: 1.5rem;
       pointer-events: none;
       animation: fall linear infinite;
+      text-shadow: 0 0 6px #fff, 0 0 12px #ffb3b3, 0 0 18px #ff4d4d;
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
   <h1>Eu te amo <span style="color:#ff0000;">❤</span></h1>
 
+  <!-- Som suave de celebração -->
+  <audio id="celebrate" autoplay>
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const emojis = ["🎉","💖","💌","💘","💝","✨","❤️","💟"];
     const colors = ["#ff1a1a","#ff4d4d","#ff6666","#ff99cc","#ffccff","#ffb3b3"];
     const total = 60;
 
-    function createFalling(x = Math.random() * 100) {
+    function createFalling(x = Math.random() * 100, followH1 = false) {
       const span = document.createElement("span");
       span.classList.add("falling");
       span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -77,27 +82,41 @@
       span.style.color = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(span);
 
-      // Remove o elemento após cair
+      if(followH1){
+        // Segue a mensagem suavemente
+        const h1 = document.querySelector('h1');
+        const followInterval = setInterval(() => {
+          const rect = h1.getBoundingClientRect();
+          span.style.left = rect.left + rect.width / 2 + (Math.random()*40-20) + "px";
+        }, 100);
+
+        setTimeout(() => clearInterval(followInterval), (parseFloat(span.style.animationDuration) + parseFloat(span.style.animationDelay)) * 1000);
+      }
+
       setTimeout(() => span.remove(), (parseFloat(span.style.animationDuration) + parseFloat(span.style.animationDelay)) * 1000);
     }
 
-    // Cria confetes contínuos automaticamente
+    // Confetes automáticos
     for (let i = 0; i < total; i++) createFalling();
 
-    setInterval(() => {
-      createFalling();
-    }, 300);
+    setInterval(() => createFalling(), 300);
 
-    // Interação com mouse
+    // Confetes seguem mouse
     document.addEventListener("mousemove", (e) => {
       const x = (e.clientX / window.innerWidth) * 100;
-      createFalling(x);
+      createFalling(x, true);
     });
 
-    // Interação com toque no celular
     document.addEventListener("touchmove", (e) => {
       const x = (e.touches[0].clientX / window.innerWidth) * 100;
-      createFalling(x);
+      createFalling(x, true);
+    });
+
+    // Som suave de celebração ao carregar
+    window.addEventListener("load", () => {
+      const audio = document.getElementById("celebrate");
+      audio.volume = 0.2;
+      audio.play();
     });
   </script>
 </body>
